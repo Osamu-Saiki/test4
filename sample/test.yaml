@@ -1,0 +1,35 @@
+# test.yaml
+  
+# テスト用プロジェクト
+apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+kind: Project
+metadata:
+  annotations:
+    cnrm.cloud.google.com/auto-create-network: "false"
+  name: cc-test-prj
+  namespace: config-control
+spec:
+  # name (プロジェクト名、ディスプレイ表示) と resourceID (プロジェクトID) は一致させる
+  name: cc-test-prj
+  resourceID: cc-test-prj
+  folderRef:
+    # フォルダID
+    external: "301230177350"
+  billingAccountRef:
+    # 請求先アカウントID
+    external: "01440B-61F5E1-DE737F"
+---
+# テスト用 Storage バケット
+apiVersion: storage.cnrm.cloud.google.com/v1beta1
+kind: StorageBucket
+metadata:
+  annotations:
+    cnrm.cloud.google.com/project-id: cc-test-prj
+    cnrm.cloud.google.com/state-into-spec: absent
+  name: cc-test-prj-demo-bucket
+  namespace: config-control
+spec:
+  storageClass: STANDARD
+  location: asia-northeast1
+  uniformBucketLevelAccess: true
+---
